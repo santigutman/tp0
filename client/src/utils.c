@@ -15,28 +15,30 @@ void* serializar_paquete(t_paquete* paquete, int bytes)
 
 	return magic;
 }
-
 int crear_conexion(char *ip, char* puerto)
 {
-	struct addrinfo hints;
-	struct addrinfo *server_info;
+    struct addrinfo hints;
+    struct addrinfo *server_info;
 
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_INET;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;        // IPv4
+    hints.ai_socktype = SOCK_STREAM;  // TCP
 
-	getaddrinfo(ip, puerto, &hints, &server_info);
+    getaddrinfo(ip, puerto, &hints, &server_info);
+	
+    int socket_cliente = socket(server_info->ai_family,
+                                server_info->ai_socktype,
+                                server_info->ai_protocol);
 
-	// Ahora vamos a crear el socket.
-	int socket_cliente = 0;
+    if (connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen) == -1) {
+        perror("Error al conectar con el servidor");
+        freeaddrinfo(server_info);
+        return -1;
+    }
 
-	// Ahora que tenemos el socket, vamos a conectarlo
+    freeaddrinfo(server_info);
 
-
-	freeaddrinfo(server_info);
-
-	return socket_cliente;
+    return socket_cliente;
 }
 
 void enviar_mensaje(char* mensaje, int socket_cliente)
