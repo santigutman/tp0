@@ -1,4 +1,6 @@
 #include "server.h"
+#include <commons/config.h>
+#include <commons/log.h>
 
 int main(void) {
 	logger = log_create("log.log", "Servidor", 1, LOG_LEVEL_DEBUG);
