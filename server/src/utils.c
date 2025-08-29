@@ -93,4 +93,8 @@ t_list* recibir_paquete(int socket_cliente)
 	}
 	free(buffer);
 	return valores;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8a0e89e (funciona etapa 2)

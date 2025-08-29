@@ -32,4 +32,8 @@ int main(void) {
 
 void iterator(char* value) {
 	log_info(logger,"%s", value);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8a0e89e (funciona etapa 2)
