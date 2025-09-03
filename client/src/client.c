@@ -24,23 +24,24 @@ int main(void)
 	valor = config_get_string_value(config, "CLAVE");
 	ip = config_get_string_value(config, "IP");
 	puerto = config_get_string_value(config, "PUERTO");
-	
 	log_info(logger, "Hola! Soy un log\nCLAVE: %s\nIP: %s\nPUERTO: %s", valor, ip, puerto);
+	
 	conexion = crear_conexion(ip, puerto);
-	leer_consola(logger);
 
+	enviar_mensaje(valor,conexion);
+	//leer_consola(logger);
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
 
-	config_destroy(config);
-	log_destroy(logger);
 	// Enviamos al servidor el valor de CLAVE como mensaje
 
 	// Armamos y enviamos el paquete
-	paquete(conexion);
+	paquete(conexion, logger);
 
 	//terminar_programa(conexion, logger, config);
+	config_destroy(config);
+	log_destroy(logger);
 	return 0;
 
 	/*---------------------------------------------------PARTE 5-------------------------------------------------------------*/
@@ -75,7 +76,7 @@ void leer_consola(t_log* logger)
 	}	
 }
 
-void paquete(int conexion)
+void paquete(int conexion, t_log* logger)
 {
     char* leido;
     t_paquete* paquete = crear_paquete();
