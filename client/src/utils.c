@@ -33,7 +33,7 @@ int crear_conexion(char *ip, char* puerto)
     if (connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen) == -1) {
         perror("Error al conectar con el servidor");
         freeaddrinfo(server_info);
-        return -1;
+        return -2;
     }
 
     freeaddrinfo(server_info);
